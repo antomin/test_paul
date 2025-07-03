@@ -4,6 +4,7 @@ from fastapi import APIRouter, Body, Depends, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.deps.task import get_task_by_id
+from database.enums import TaskStatus
 from database.interface import db
 from database.models import Task
 from database.schemas.task import TaskCreateSchema, TaskSchema, TaskUpdateSchema
@@ -43,8 +44,13 @@ async def tasks_update_view(
     data: Annotated[TaskUpdateSchema, Body(...)],
     task: Annotated[Task, Depends(get_task_by_id)],
     session: Annotated[AsyncSession, Depends(db.get_session)],
+    redis: Annotated[RedisConnector, Depends(redis_client)],
 ):
     task = await task.update(**data.model_dump(exclude_unset=True), session=session)
+
+    if task.status == TaskStatus.done:
+        message = redis.build_message(event=TaskEvent.updated, task=TaskSchema.model_validate(task))
+        await redis.publish(message)
 
     return task
 

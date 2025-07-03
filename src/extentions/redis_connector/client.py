@@ -32,17 +32,13 @@ class RedisConnector:
             raise ValueError("Redis connection is not initialized")
         await self._redis_client.publish(channel=self.channel, message=message)
 
-    async def subscribe(self, channel: str) -> AsyncGenerator[PubSub, None]:
+    async def subscribe(self, channel: str) -> PubSub:
         if not self._redis_client:
             raise ValueError("Redis connection is not initialized")
 
         pubsub = self._redis_client.pubsub()
         await pubsub.subscribe(channel)
-        try:
-            yield pubsub
-        finally:
-            await pubsub.unsubscribe(channel)
-            await pubsub.close()
+        return pubsub
 
     @staticmethod
     def build_message(event: TaskEvent, task: TaskSchema) -> str:
@@ -63,3 +59,14 @@ async def redis_client() -> AsyncGenerator[RedisConnector, None]:
         yield client
     finally:
         await client.disconnect()
+
+
+async def get_redis_client() -> RedisConnector:
+    client = RedisConnector(
+        host=settings.REDIS_HOST,
+        port=settings.REDIS_PORT,
+        db=settings.REDIS_DB,
+        channel=settings.REDIS_CHANNEL,
+    )
+    await client.connect()
+    return client
