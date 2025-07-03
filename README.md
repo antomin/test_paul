@@ -8,7 +8,7 @@ Welcome to the project! This README file will guide you through the setup proces
 
 Before starting, ensure you meet the following requirements:
 
-- A Unix-based operating system (Linux/MacOS) or Windows with WSL enabled.
+- A Unix-based operating system (Linux) or Windows with WSL enabled.
 - **Docker** installed on the host machine. You can install Docker by following the official guide: [Get Docker](https://docs.docker.com/get-docker/).
 - **Docker Compose** (comes pre-installed with Docker Desktop).
 
