@@ -17,7 +17,7 @@ class TaskSchema(TaskBaseSchema):
 
     id: int
     created_at: datetime
-    updated_at: datetime
+    modified_at: datetime
 
 
 class TaskCreateSchema(TaskBaseSchema):

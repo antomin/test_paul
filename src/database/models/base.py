@@ -13,7 +13,9 @@ class Base(DeclarativeBase, Generic[T]):
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, index=True)
     created_at: Mapped[datetime] = mapped_column(default=func.now(), server_default=func.now())
-    modified_at: Mapped[datetime] = mapped_column(default=func.now(), server_default=func.now(), onupdate=func.now())
+    modified_at: Mapped[datetime] = mapped_column(
+        default=func.now(), server_default=func.now(), onupdate=func.now(), server_onupdate=func.now()
+    )
 
     def __str__(self):
         return f"<{self.__class__.__name__}: {self.id}>"

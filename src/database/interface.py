@@ -26,4 +26,4 @@ class DatabaseHelper:
             yield session
 
 
-db = DatabaseHelper(settings.DATABASE_URL)
+db = DatabaseHelper(settings.database_url)
