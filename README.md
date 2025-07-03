@@ -19,7 +19,7 @@ Before starting, ensure you meet the following requirements:
 1. Locate the `.env` file provided in the project root directory.
 2. Fill in the required connection details. Here's an example of how your `.env` file should look:
 
-   > **Note**: Leave `POSTGRES_HOST` and `REDIS_HOST` with their default values (`localhost`). Update other fields as per your requirements.
+   > **Note**: Leave `POSTGRES_HOST` and `REDIS_HOST` with their default values. Update other fields as per your requirements.
 
 ---
 
