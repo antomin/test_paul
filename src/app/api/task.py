@@ -21,3 +21,8 @@ async def tasks_create_view():
 @router.patch("/{task_id}")
 async def tasks_update_view():
     pass
+
+
+@router.delete("/{task_id}")
+async def tasks_delete_view():
+    pass
