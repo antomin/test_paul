@@ -15,7 +15,7 @@ class Settings(BaseSettings):
 
     # Telegram
     TG_BOT_TOKEN: str
-    TG__LOG_CHAT_ID: str
+    TG_LOG_CHAT_ID: str
 
     # Postgres
     POSTGRES_HOST: str
