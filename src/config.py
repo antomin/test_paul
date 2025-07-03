@@ -32,10 +32,7 @@ class Settings(BaseSettings):
     REDIS_HOST: str
     REDIS_PORT: int
     REDIS_DB: int
-
-    @property
-    def redis_url(self) -> str:
-        return f"redis://{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
+    REDIS_CHANNEL: str = "tasks"
 
 
 settings = Settings()

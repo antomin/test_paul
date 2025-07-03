@@ -7,11 +7,13 @@ from app.deps.task import get_task_by_id
 from database.interface import db
 from database.models import Task
 from database.schemas.task import TaskCreateSchema, TaskSchema, TaskUpdateSchema
+from extentions.redis_connector.client import RedisConnector, redis_client
+from extentions.redis_connector.enums import TaskEvent
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
 
-@router.get("/", response_model=list[TaskSchema])
+@router.get("", response_model=list[TaskSchema])
 async def tasks_list_view(session: Annotated[AsyncSession, Depends(db.get_session)]):
     tasks = await Task.get_all(session)
 
@@ -23,12 +25,15 @@ async def tasks_detail_view(task: Annotated[Task, Depends(get_task_by_id)]):
     return task
 
 
-@router.post("/{task_id}", response_model=TaskSchema)
+@router.post("", response_model=TaskSchema)
 async def tasks_create_view(
     data: Annotated[TaskCreateSchema, Body(...)],
     session: Annotated[AsyncSession, Depends(db.get_session)],
+    redis: Annotated[RedisConnector, Depends(redis_client)],
 ):
     task = await Task(**data.model_dump()).create(session)
+    message = redis.build_message(event=TaskEvent.created, task=TaskSchema.model_validate(task))
+    await redis.publish(message)
 
     return task
 
