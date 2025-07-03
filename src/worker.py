@@ -26,8 +26,7 @@ async def process_message(message: dict) -> None:
         logger.error("Invalid message")
 
 
-async def start_worker():
-    print(f"{settings.REDIS_HOST}:{settings.REDIS_PORT}")
+async def start_worker() -> None:
     client = RedisConnector(
         host=settings.REDIS_HOST,
         port=settings.REDIS_PORT,
