@@ -10,6 +10,7 @@ T = TypeVar("T")
 
 class Base(DeclarativeBase, Generic[T]):
     __abstract__ = True
+    __mapper_args__ = {"eager_defaults": True}
 
     id: Mapped[int] = mapped_column(BigInteger, primary_key=True, index=True)
     created_at: Mapped[datetime] = mapped_column(default=func.now(), server_default=func.now())

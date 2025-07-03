@@ -27,6 +27,7 @@ async def process_message(message: dict) -> None:
 
 
 async def start_worker():
+    print(f"{settings.REDIS_HOST}:{settings.REDIS_PORT}")
     client = RedisConnector(
         host=settings.REDIS_HOST,
         port=settings.REDIS_PORT,
