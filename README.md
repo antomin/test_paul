@@ -19,14 +19,29 @@ Before starting, ensure you meet the following requirements:
 1. Locate the `.env` file provided in the project root directory.
 2. Fill in the required connection details. Here's an example of how your `.env` file should look:
 
-   > **Note**: Leave `POSTGRES_HOST` and `REDIS_HOST` with their default values. Update other fields as per your requirements.
+   > **Note**: Leave `POSTGRES_HOST`, `POSTGRES_PORT`, `REDIS_HOST`, `REDIS_PORT` with their default values. Update other fields as per your requirements.
 
 ---
 
-## Step 2: Install Docker on the Host
+## Step 3: Run the Project
 
-If Docker is not already installed on your system, follow the detailed instructions for your specific platform on the official Docker website:
+After configuring the `.env` file and ensuring Docker is installed, you can start the application by running the following command in your terminal:
 
-- [Install Docker](https://docs.docker.com/get-docker/)
+   ```bash
+  docker compose up --build -d
+  ```
 
-Ensure that both **Docker** and **Docker Compose** are properly installed and functioning by running the following commands in your terminal:
+## Additional Notes
+
+- To view the logs of the running containers, use:
+
+  ```bash
+  docker compose logs -f
+  ```
+
+
+- To stop and remove the running containers, execute:
+
+  ```bash
+  docker compose down
+  ```
