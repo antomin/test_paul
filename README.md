@@ -23,7 +23,7 @@ Before starting, ensure you meet the following requirements:
 
 ---
 
-## Step 3: Run the Project
+## Step 2: Run the Project
 
 After configuring the `.env` file and ensuring Docker is installed, you can start the application by running the following command in your terminal:
 
